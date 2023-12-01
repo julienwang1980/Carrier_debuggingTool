@@ -1,0 +1,93 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'UiSerialConnect.ui'
+#
+# Created by: PyQt5 UI code generator 5.9.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Serial_connect(object):
+    def setupUi(self, Serial_connect):
+        Serial_connect.setObjectName("Serial_connect")
+        Serial_connect.setEnabled(True)
+        Serial_connect.resize(528, 295)
+        font = QtGui.QFont()
+        font.setStrikeOut(False)
+        Serial_connect.setFont(font)
+        Serial_connect.setWindowOpacity(9.0)
+        self.groupBox = QtWidgets.QGroupBox(Serial_connect)
+        self.groupBox.setGeometry(QtCore.QRect(10, 20, 501, 231))
+        self.groupBox.setObjectName("groupBox")
+        self.formLayoutWidget = QtWidgets.QWidget(self.groupBox)
+        self.formLayoutWidget.setGeometry(QtCore.QRect(20, 30, 281, 161))
+        self.formLayoutWidget.setObjectName("formLayoutWidget")
+        self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
+        self.formLayout.setContentsMargins(0, 0, 0, 0)
+        self.formLayout.setObjectName("formLayout")
+        self.comboBox_port = QtWidgets.QComboBox(self.formLayoutWidget)
+        self.comboBox_port.setObjectName("comboBox_port")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.comboBox_port)
+        self.label = QtWidgets.QLabel(self.formLayoutWidget)
+        self.label.setObjectName("label")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
+        self.label_2 = QtWidgets.QLabel(self.formLayoutWidget)
+        self.label_2.setObjectName("label_2")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
+        self.comboBox_bitRate = QtWidgets.QComboBox(self.formLayoutWidget)
+        self.comboBox_bitRate.setObjectName("comboBox_bitRate")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.comboBox_bitRate)
+        self.label_3 = QtWidgets.QLabel(self.formLayoutWidget)
+        self.label_3.setObjectName("label_3")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_3)
+        self.comboBox_dataLength = QtWidgets.QComboBox(self.formLayoutWidget)
+        self.comboBox_dataLength.setObjectName("comboBox_dataLength")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.comboBox_dataLength)
+        self.label_4 = QtWidgets.QLabel(self.formLayoutWidget)
+        self.label_4.setObjectName("label_4")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_4)
+        self.comboBox_stopBit = QtWidgets.QComboBox(self.formLayoutWidget)
+        self.comboBox_stopBit.setObjectName("comboBox_stopBit")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.comboBox_stopBit)
+        self.label_5 = QtWidgets.QLabel(self.formLayoutWidget)
+        self.label_5.setObjectName("label_5")
+        self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_5)
+        self.comboBox_paritySet = QtWidgets.QComboBox(self.formLayoutWidget)
+        self.comboBox_paritySet.setObjectName("comboBox_paritySet")
+        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.comboBox_paritySet)
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.groupBox)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(330, 30, 131, 100))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.pushButton_scanPort = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_scanPort.setObjectName("pushButton_scanPort")
+        self.verticalLayout.addWidget(self.pushButton_scanPort)
+        self.pushButton_openPort = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_openPort.setObjectName("pushButton_openPort")
+        self.verticalLayout.addWidget(self.pushButton_openPort)
+        self.pushButton_closePort = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_closePort.setObjectName("pushButton_closePort")
+        self.verticalLayout.addWidget(self.pushButton_closePort)
+        self.lineEdit_state = QtWidgets.QLineEdit(self.groupBox)
+        self.lineEdit_state.setGeometry(QtCore.QRect(340, 160, 113, 22))
+        self.lineEdit_state.setObjectName("lineEdit_state")
+
+        self.retranslateUi(Serial_connect)
+        QtCore.QMetaObject.connectSlotsByName(Serial_connect)
+
+    def retranslateUi(self, Serial_connect):
+        _translate = QtCore.QCoreApplication.translate
+        Serial_connect.setWindowTitle(_translate("Serial_connect", "Serial_connect"))
+        self.groupBox.setTitle(_translate("Serial_connect", "Serial port setup"))
+        self.label.setText(_translate("Serial_connect", "Prot:"))
+        self.label_2.setText(_translate("Serial_connect", "Bit rate:"))
+        self.label_3.setText(_translate("Serial_connect", "Data length:"))
+        self.label_4.setText(_translate("Serial_connect", "Stop bit:"))
+        self.label_5.setText(_translate("Serial_connect", "Parity set:"))
+        self.pushButton_scanPort.setText(_translate("Serial_connect", "Scan port"))
+        self.pushButton_openPort.setText(_translate("Serial_connect", "Open port"))
+        self.pushButton_closePort.setText(_translate("Serial_connect", "Close port"))
+
