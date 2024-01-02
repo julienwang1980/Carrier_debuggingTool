@@ -8,20 +8,13 @@ import modbus_tk.defines as cst
 from PyQt5.QtCore import QTimer
 
 
-class TableSubwindow(QMdiSubWindow, ):
-    slave_id = 1
-    function_code = cst.READ_INPUT_REGISTERS
+class Table3Subwindow(QMdiSubWindow, ):
     address = 40000
     quantity = 30
     scanRate = 1000
-    widgetSize = {"width": 430, "height": 730}
-    file_path = None
     modbus = None
-    Cbox = None
-    CboxInit = False
-    deviceID = "6c8fe57f6191f18c6750fi"
-    isOnline = False
-    pass
+    wd = None
+    ws = None
 
 
     def __init__(self):

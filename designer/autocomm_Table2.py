@@ -8,7 +8,7 @@ import modbus_tk.defines as cst
 from PyQt5.QtCore import QTimer
 
 
-class TableSubwindow(QMdiSubWindow, ):
+class Table2Subwindow(QMdiSubWindow, ):
     slave_id = 1
     function_code = cst.READ_INPUT_REGISTERS
     address = 40000
