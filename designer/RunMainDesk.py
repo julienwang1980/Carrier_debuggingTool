@@ -33,6 +33,7 @@ class MainDesk(QMainWindow, Ui_MainWindow):
         self.setCentralWidget(self.mdi)
         # 工具栏设定
         bar = self.menuBar()
+        # file菜单
         self.file = bar.addMenu("File")
         self.file.addAction("New")
         self.open = QAction("Open", self)
@@ -43,14 +44,22 @@ class MainDesk(QMainWindow, Ui_MainWindow):
         self.file.addAction(self.saveAs)
         self.file.addSeparator()
         self.file.addAction("Close")
-        self.MoubusRTU = bar.addMenu("MoubusRTU")
-        self.moubusConn = QAction("Connect", self)
-        self.MoubusRTU.addAction(self.moubusConn)
-        self.moubusDisconn = QAction("Disconnect", self)
-        self.MoubusRTU.addAction(self.moubusDisconn)
-        self.moubusDisconn.setDisabled(True)
-        self.MoubusRTU.addSeparator()
-        self.MoubusRTU.addAction("Read/Write Definition")
+        # modbus菜单
+        self.ModbusRTU = bar.addMenu("ModbusRTU")
+        self.modbusConn = QAction("Connect", self)
+        self.ModbusRTU.addAction(self.modbusConn)
+        self.modbusDisconn = QAction("Disconnect", self)
+        self.ModbusRTU.addAction(self.modbusDisconn)
+        self.modbusDisconn.setDisabled(True)
+        self.ModbusRTU.addSeparator()
+        self.ModbusRTU.addAction("Read/Write Definition")
+        self.AutomissionStart = QAction("Automission start", self)
+        self.ModbusRTU.addAction(self.AutomissionStart)
+        self.AutomissionStart.setDisabled(True)
+        self.AutomissionStop = QAction("Automission stop", self)
+        self.ModbusRTU.addAction(self.AutomissionStop)
+        self.AutomissionStop.setDisabled(True)
+        # cbox菜单
         self.Cbox = bar.addMenu("C_Box")
         self.CboxConn = QAction("Connect", self)
         self.Cbox.addAction(self.CboxConn)
@@ -62,7 +71,7 @@ class MainDesk(QMainWindow, Ui_MainWindow):
         self.Cbox.addAction("Set scan rate")
         # 工具栏按钮信号槽连接
         self.file.triggered.connect(self.fileAction)
-        self.MoubusRTU.triggered.connect(self.MoubusRTUAction)
+        self.ModbusRTU.triggered.connect(self.ModbusRTUAction)
         self.Cbox.triggered.connect(self.CboxAction)
 
 
@@ -177,9 +186,9 @@ class MainDesk(QMainWindow, Ui_MainWindow):
             self.close()
 
 
-    def MoubusRTUAction(self,q):
+    def ModbusRTUAction(self,q):
         """
-        MoubusRTU菜单栏功能实现
+        ModbusRTU菜单栏功能实现
         """
         if q.text() == "Connect":
             result, parameter = Serial_set.getParameter()
@@ -197,13 +206,14 @@ class MainDesk(QMainWindow, Ui_MainWindow):
                 except:
                     QMessageBox.warning(self, '警告', '端口连接失败', QMessageBox.Yes, QMessageBox.Yes)
                 else:
-                    self.moubusConn.setDisabled(True)
-                    self.moubusDisconn.setEnabled(True)
+                    self.modbusConn.setDisabled(True)
+                    self.modbusDisconn.setEnabled(True)
                     self.Cbox.setDisabled(True)
 
         elif q.text() == "Disconnect":
-            self.moubusConn.setEnabled(True)
-            self.moubusDisconn.setDisabled(True)
+            self.modbusConn.setEnabled(True)
+            self.modbusDisconn.setDisabled(True)
+            self.AutomissionStart.setEnabled(True)
             self.Cbox.setEnabled(True)
             self.modbus_conn.clear()
 
@@ -226,6 +236,16 @@ class MainDesk(QMainWindow, Ui_MainWindow):
                     selected_sub_window.scanRate = int(modbusFunc.lineEdit_scanRate.text())
                     selected_sub_window.resetTable()
 
+        elif q.text() == "Automission start":
+            self.AutomissionStart.setDisabled(True)
+            self.AutomissionStop.setEnabled(True)
+            pass
+
+        elif q.text() == "Automission stop":
+            self.AutomissionStart.setEnabled(True)
+            self.AutomissionStop.setDisabled(True)
+            pass
+
 
     def CboxAction(self, q):
         """
@@ -242,14 +262,14 @@ class MainDesk(QMainWindow, Ui_MainWindow):
                 except:
                     pass
                 else:
-                    self.MoubusRTU.setDisabled(True)
+                    self.ModbusRTU.setDisabled(True)
                     self.CboxDisconn.setEnabled(True)
                     self.CboxConn.setDisabled(True)
                 fp.close()
         # 断开连接
         elif q.text() == "Disconnect":
             self.cbox_conn.clear()
-            self.MoubusRTU.setEnabled(True)
+            self.ModbusRTU.setEnabled(True)
             self.CboxDisconn.setDisabled(True)
             self.CboxConn.setEnabled(True)
             for i in self.mdi.subWindowList():
