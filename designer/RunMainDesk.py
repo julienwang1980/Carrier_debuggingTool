@@ -12,13 +12,11 @@ from RunDialog_ModbusDefinition import Modbus_definition
 import serial
 import json
 from tuya_api.openapi import TuyaOpenAPI
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font
 import time
-from autocomm_Table1 import Table1Subwindow
-from autocomm_Table2 import Table2Subwindow
-from autocomm_Table3 import Table3Subwindow
-from autocomm_Table4 import Table4Subwindow
+from autocomm_Table import AutocommTableSubwindow
+
 
 
 
@@ -249,41 +247,26 @@ class MainDesk(QMainWindow, Ui_MainWindow):
         elif q.text() == "Automission start":
             self.AutomissionStart.setDisabled(True)
             self.AutomissionStop.setEnabled(True)
-            self.wb = Workbook()
+            self.wb = load_workbook("../多联机调试记录表-自动调试.xlsx")
+            print(self.wb.sheetnames)
             # print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
-            self.ws_1 = self.wb.active
-            self.ws_1.title = "调试记录表"
-            self.ws_2 = self.wb.create_sheet("简要概况", 0)
-            self.ws_3 = self.wb.create_sheet("详细数据-外机", 0)
-            self.ws_4 = self.wb.create_sheet("详细数据-内积", 0)
-            localtime = time.strftime("%Y%m%d%H%M", time.localtime())
-            self.wb.save("../多联机调试记录表_{}.xlsx".format(localtime))
+            self.autocommTable = AutocommTableSubwindow()
             # print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
+            self.autocommTable.wb = self.wb;
+            self.autocommTable.modbus = self.modbus_conn;
+            self.mdi.addSubWindow(self.autocommTable)
+            # print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
+            self.autocommTable.show()
 
-            table1 = Table1Subwindow()
-            print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
-            # table2 = autocomm_Table1.TableSubwindow
-            # table3 = autocomm_Table1.TableSubwindow
-            # table4 = autocomm_Table1.TableSubwindow
-            # data = []
-            # for row in ws.iter_rows(min_row=3, max_row=3, min_col=2):
-            #     for cell in row:
-            #         data.append(cell.value)
-            # wb.close()
-            # self.table1.modbus = self.modbus_conn
-            #
-            # self.table1.file_path =
-            # self.table1.resetTable()
-            self.mdi.addSubWindow(table1)
-            print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
-            table1.show()
-
-            pass
         elif q.text() == "Automission stop":
             self.AutomissionStart.setEnabled(True)
             self.AutomissionStop.setDisabled(True)
+            self.autocommTable.close()
+            print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
+            localtime = time.strftime("%Y%m%d%H%M", time.localtime())
+            self.wb.save("../多联机调试记录表_{}.xlsx".format(localtime))
             self.wb.close()
-            pass
+
 
 
     def CboxAction(self, q):
