@@ -60,10 +60,7 @@ class MainDesk(QMainWindow, Ui_MainWindow):
         self.ModbusRTU.addAction("Read/Write Definition")
         self.AutomissionStart = QAction("Automission start", self)
         self.ModbusRTU.addAction(self.AutomissionStart)
-        # self.AutomissionStart.setDisabled(True)
-        self.AutomissionStop = QAction("Automission stop", self)
-        self.ModbusRTU.addAction(self.AutomissionStop)
-        # self.AutomissionStop.setDisabled(True)
+        self.AutomissionStart.setDisabled(True)
         # cbox菜单
         self.Cbox = bar.addMenu("C_Box")
         self.CboxConn = QAction("Connect", self)
@@ -214,14 +211,12 @@ class MainDesk(QMainWindow, Ui_MainWindow):
                     self.modbusConn.setDisabled(True)
                     self.modbusDisconn.setEnabled(True)
                     self.AutomissionStart.setEnabled(True)
-                    self.AutomissionStop.setEnabled(True)
                     self.Cbox.setDisabled(True)
 
         elif q.text() == "Disconnect":
             self.modbusConn.setEnabled(True)
             self.modbusDisconn.setDisabled(True)
             self.AutomissionStart.setDisabled(True)
-            self.AutomissionStop.setDisabled(True)
             self.Cbox.setEnabled(True)
             self.modbus_conn.clear()
 
@@ -246,26 +241,15 @@ class MainDesk(QMainWindow, Ui_MainWindow):
 
         elif q.text() == "Automission start":
             self.AutomissionStart.setDisabled(True)
-            self.AutomissionStop.setEnabled(True)
-            self.wb = load_workbook("../多联机调试记录表-自动调试.xlsx")
-            print(self.wb.sheetnames)
             # print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
             self.autocommTable = AutocommTableSubwindow()
             # print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
-            self.autocommTable.wb = self.wb;
             self.autocommTable.modbus = self.modbus_conn;
             self.mdi.addSubWindow(self.autocommTable)
             # print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
             self.autocommTable.show()
 
-        elif q.text() == "Automission stop":
-            self.AutomissionStart.setEnabled(True)
-            self.AutomissionStop.setDisabled(True)
-            self.autocommTable.close()
-            print("程序执行到文件：{}，第{}行".format(sys._getframe().f_code.co_filename, str(sys._getframe().f_lineno)))
-            localtime = time.strftime("%Y%m%d%H%M", time.localtime())
-            self.wb.save("../多联机调试记录表_{}.xlsx".format(localtime))
-            self.wb.close()
+
 
 
 
